@@ -33,14 +33,14 @@ class SHT31:
     """
 
     # control constants
-    _RESET = 0x30A2
+    _SOFT_RESET = 0x30A2
+    _STATUS = 0xF32D
     _HEATER_ON = 0x306D
     _HEATER_OFF = 0x3066
-    _STATUS = 0xF32D
     _TRIGGER = 0x2C06
     _STATUS_BITS_MASK = 0xFFFC
 
-    _I2C_ADDRESS = 0x44
+    _I2C_ADDRESS = [0x44, 0x45]
 
     # From: /linux/i2c-dev.h
     _I2C_SLAVE = 0x0703
@@ -49,16 +49,19 @@ class SHT31:
     # datasheet (v0.93), page 5, table 4
     _MEASUREMENT_WAIT_TIME = 0.015  # (datasheet: typ=12.5, max=15)
 
-    def __init__(self, device_number=1):
+    def __init__(self, bus_number=1, device_number=0):
         """Opens the i2c device (assuming that the kernel modules have been
         loaded)."""
-        self.i2c = open('/dev/i2c-%s' % device_number, 'r+', 0)
-        fcntl.ioctl(self.i2c, self._I2C_SLAVE, 0x44)
+        self.i2c = open('/dev/i2c-%s' % bus_number, 'r+', 0)
+        self.device_address = _I2C_ADDRESS[device_number]
+        fcntl.ioctl(self.i2c, self._I2C_SLAVE, self.device_address)
+        time.sleep(0.050)
+        self.soft_reset()
         time.sleep(0.050)
 
     def soft_reset(self):
         """Performs Soft Reset on SHT31 chip"""
-        self.write(self._RESET)
+        self.write(self._SOFT_RESET)
 
     def check_heater_status(self):
         """Checks the status of the heater. Returns False if off and True if on"""
@@ -98,6 +101,14 @@ class SHT31:
                 return self._get_temperature_fahrenheit(temp_data), self._get_humidity(humidity_data)
         else:
             return 0, 0
+
+    def read_temperature(self):
+        temperature, humidity = sht31.get_temp_and_humidity()
+        return temperature
+
+    def read_humidity(self):
+        temperature, humidity = sht31.get_temp_and_humidity()
+        return humidity
 
     def write(self, value):
         self.i2c.write(struct.pack(">H", value))

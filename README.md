@@ -30,6 +30,64 @@ Written by Richard Jaques
 Packaged and modified by Richard Teel for TeelSys LLC.
 MIT license, all text above must be included in any redistribution
 
+# Class Methods #
+
+- *Constructor*
+	- Arguments:
+		- bus_number (int Default=1)
+		- device_number (int Default=0)<br/>
+			*NOTE:* Only valid for SHT31 
+	- Returns: NONE
+- soft_reset
+	- Description: Perform a soft reset on the sensor
+	- Arguments
+		- NONE
+	- Returns: NONE
+- check_heater_status
+	- Description: Returns the status of the internal heater True=ON / False=OFF
+	- Arguments
+		- NONE
+	- Returns: BOOL
+- turn_heater_on
+	- Description: Turns the internal heater on
+	- Arguments
+		- NONE
+	- Returns: NONE
+- turn_heater_off
+	- Description: Turns the internal heater off
+	- Arguments
+		- NONE
+	- Returns: NONE
+- get_temp_and_humidity
+	- Description:
+	- Arguments:
+		- key/value pairs with only unit being used
+			- *(Default)* unit = 'C' returns temperature in degrees Celsius
+			- unit = 'F' return temperature in degrees Fahrenheit
+	- Returns: Tuple of (temperature, humidity)
+- read_temperature
+	- Description: Read the temperature in degrees Celsius
+	- Arguments
+		- NONE
+	- Returns: FLOAT
+- read_humidity
+	- Description: Read the humidity value in percent relative humidity (0 to 100%)
+	- Arguments
+		- NONE
+	- Returns: FLOAT
+- close
+	- Description: Close the I2C connection
+	- Arguments
+		- NONE
+	- Returns: NONE
+
+# Device Notes #
+
+||Device||SHT21||SHT25||SHT31||
+|I2C Addresses|0x40|0x40|0x44. 0x45|
+
+
+
 # NOTES #
 
 - The code here is not my own. I simply packaged the original code to allow installation from pip and pip3. I also made some modifiecations to allow the package to work for Python 2 and 3.
