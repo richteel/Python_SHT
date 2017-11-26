@@ -22,7 +22,7 @@ To install, run one or both of the following commands from a terminal window on 
 
 Make sure you have internet access on the device so it can download the required dependencies.
 
-#Examples#
+# Examples #
 
 See examples of usage in the examples folder.
 
@@ -30,7 +30,7 @@ Written by Richard Jaques
 Packaged and modified by Richard Teel for TeelSys LLC.
 MIT license, all text above must be included in any redistribution
 
-#NOTES#
+# NOTES #
 
 - The code here is not my own. I simply packaged the original code to allow installation from pip and pip3. I also made some modifiecations to allow the package to work for Python 2 and 3.
 	- https://github.com/jaques/sht21_python
