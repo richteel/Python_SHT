@@ -17,7 +17,7 @@ classifiers = ['Development Status :: 4 - Beta',
                'Topic :: Software Development',
                'Topic :: System :: Hardware']
 
-setup(name              = 'Python_SHT',
+setup(name              = 'TeelSys_SHT',
       version           = '1.0.0',
       author            = 'Richard Teel',
       author_email      = 'richteel@teelsys.com',
