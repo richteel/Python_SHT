@@ -13,11 +13,11 @@ To install, run one or both of the following commands from a terminal window on 
 
 ## Installation - Python ##
 
-<pre>sudo pip install git+git://github.com/richteel/TeelSys_Python_SMT.git</pre>
+<pre>sudo pip install git+git://github.com/richteel/TeelSys_Python_SHT.git</pre>
 
 ## Installation - Python 3 ##
 
-<pre>sudo pip3 install git+git://github.com/richteel/TeelSys_Python_SMT.git</pre>
+<pre>sudo pip3 install git+git://github.com/richteel/TeelSys_Python_SHT.git</pre>
 
 
 Make sure you have internet access on the device so it can download the required dependencies.
