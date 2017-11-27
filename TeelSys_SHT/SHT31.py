@@ -52,7 +52,7 @@ class SHT31:
     def __init__(self, bus_number=1, device_number=0):
         """Opens the i2c device (assuming that the kernel modules have been
         loaded)."""
-        self.i2c = open('/dev/i2c-%s' % bus_number, 'r+', 0)
+        self.i2c = open('/dev/i2c-%s' % bus_number, 'rb+', buffering=0)
         self.device_address = self._I2C_ADDRESS[device_number]
         fcntl.ioctl(self.i2c, self._I2C_SLAVE, self.device_address)
         time.sleep(0.050)
@@ -131,15 +131,23 @@ class SHT31:
         # CRC
         polynomial = 0x131  # //P(x)=x^8+x^5+x^4+1 = 100110001
         crc = 0xFF
+        strval = struct.pack(">H", value)
 
         # calculates 8-Bit checksum with given polynomial
-        for byteCtr in [ord(x) for x in struct.pack(">H", value)]:
+        index = 0
+        while index < len(strval):
+            letter = strval[index]
+            if type(letter) is int:
+                byteCtr = letter
+            else:
+                byteCtr = ord(letter)
             crc ^= byteCtr
             for bit in range(8, 0, -1):
                 if crc & 0x80:
                     crc = (crc << 1) ^ polynomial
                 else:
                     crc = (crc << 1)
+            index = index + 1
         return crc
 
     @staticmethod
@@ -193,6 +201,6 @@ if __name__ == "__main__":
             temperature, humidity = sht31.get_temp_and_humidity(unit = 'F')
             print("Temperature F: %s" % temperature)
             print("Humidity: %s" % humidity)
-    except IOError, e:
+    except IOError as e:
         print(e)
         print("Error creating connection to i2c.  This must be run as root")
