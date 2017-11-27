@@ -81,12 +81,6 @@ MIT license, all text above must be included in any redistribution
 		- NONE
 	- Returns: NONE
 
-# Device Notes #
-
-||Device||SHT21||SHT25||SHT31||
-|I2C Addresses|0x40|0x40|0x44. 0x45|
-
-
 
 # NOTES #
 

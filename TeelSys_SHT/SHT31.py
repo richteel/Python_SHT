@@ -53,7 +53,7 @@ class SHT31:
         """Opens the i2c device (assuming that the kernel modules have been
         loaded)."""
         self.i2c = open('/dev/i2c-%s' % bus_number, 'r+', 0)
-        self.device_address = _I2C_ADDRESS[device_number]
+        self.device_address = self._I2C_ADDRESS[device_number]
         fcntl.ioctl(self.i2c, self._I2C_SLAVE, self.device_address)
         time.sleep(0.050)
         self.soft_reset()
@@ -103,11 +103,11 @@ class SHT31:
             return 0, 0
 
     def read_temperature(self):
-        temperature, humidity = sht31.get_temp_and_humidity()
+        temperature, humidity = self.get_temp_and_humidity()
         return temperature
 
     def read_humidity(self):
-        temperature, humidity = sht31.get_temp_and_humidity()
+        temperature, humidity = self.get_temp_and_humidity()
         return humidity
 
     def write(self, value):
