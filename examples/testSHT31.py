@@ -10,5 +10,5 @@ with SHT31.SHT31() as sht31:
     # temperature, humidity = sht31.get_temp_and_humidity()
     # print "Temperature: %s" % temperature
     # print "Humidity: %s" % humidity
-    print "Temperature: %s"%sht31.read_temperature()
-    print "Humidity: %s"%sht31.read_humidity()
+    print("Temperature: %s"%sht31.read_temperature())
+    print("Humidity: %s"%sht31.read_humidity())

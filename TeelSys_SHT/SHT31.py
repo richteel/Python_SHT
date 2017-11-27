@@ -174,7 +174,7 @@ class SHT31:
         where SRH is the value read from the sensor
         """
         unadjusted *= 100.0
-        unadjusted /= 1 << 16  # divide by 2^16
+        unadjusted /= ((1 << 16) - 1)  # divide by 2^16
         unadjusted -= 0
         return unadjusted
 
@@ -182,17 +182,17 @@ class SHT31:
 if __name__ == "__main__":
     try:
         with SHT31(1) as sht31:
-            print sht31.check_heater_status()
+            print(sht31.check_heater_status())
             sht31.turn_heater_on()
-            print sht31.check_heater_status()
+            print(sht31.check_heater_status())
             sht31.turn_heater_off()
-            print sht31.check_heater_status()
+            print(sht31.check_heater_status())
             temperature, humidity = sht31.get_temp_and_humidity()
-            print "Temperature C: %s" % temperature
-            print "Humidity: %s" % humidity
+            print("Temperature C: %s" % temperature)
+            print("Humidity: %s" % humidity)
             temperature, humidity = sht31.get_temp_and_humidity(unit = 'F')
-            print "Temperature F: %s" % temperature
-            print "Humidity: %s" % humidity
+            print("Temperature F: %s" % temperature)
+            print("Humidity: %s" % humidity)
     except IOError, e:
-        print e
-        print "Error creating connection to i2c.  This must be run as root"
+        print(e)
+        print("Error creating connection to i2c.  This must be run as root")
