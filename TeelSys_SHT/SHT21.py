@@ -50,7 +50,7 @@ class SHT21:
         loaded).  Note that this has only been tested on first revision
         raspberry pi where the device_number = 0, but it should work
         where device_number=1"""
-        self.i2c = open('/dev/i2c-%s' % device_number, 'r+', 0)
+        self.i2c = open('/dev/i2c-%s' % device_number, 'rb+', buffering=0)
         fcntl.ioctl(self.i2c, self.I2C_SLAVE, 0x40)
         self.i2c.write(chr(self._SOFTRESET))
         time.sleep(0.050)
