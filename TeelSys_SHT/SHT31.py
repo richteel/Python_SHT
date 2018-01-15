@@ -58,6 +58,7 @@ class SHT31:
         time.sleep(0.050)
         self.soft_reset()
         time.sleep(0.050)
+        self.turn_heater_off()
 
     def soft_reset(self):
         """Performs Soft Reset on SHT31 chip"""
@@ -115,6 +116,7 @@ class SHT31:
 
     def close(self):
         """Closes the i2c connection"""
+        # self.soft_reset()
         self.i2c.close()
 
     def __enter__(self):
